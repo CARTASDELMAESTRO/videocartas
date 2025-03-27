@@ -7,110 +7,114 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
             background-color: #f4f4f4;
+            flex-direction: column;
         }
 
         h1 {
-            font-size: 36px;
+            margin-bottom: 30px;
             color: #333;
-            margin-top: 50px;
         }
 
-        #video-container {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        #videoContainer {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            background-color: #000;
         }
 
         video {
-            width: 80%;  /* Ajusta el tamaño del video según tu preferencia */
-            max-width: 800px;
-            border: 2px solid #333;
+            width: 100%;
+            height: auto;
+        }
+
+        .buttons {
+            margin-top: 20px;
         }
 
         button {
-            padding: 15px 30px;
-            font-size: 18px;
-            margin: 15px;
-            background-color: #3498db;
+            background-color: #007BFF;
             color: white;
+            padding: 10px 20px;
+            font-size: 16px;
             border: none;
-            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            margin: 10px;
+            border-radius: 5px;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
 
         button:hover {
-            background-color: #2980b9;
+            background-color: #0056b3;
         }
 
-        /* Estilo para los botones centrados */
-        #button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
     </style>
 </head>
 <body>
 
     <h1>Simulador de Tarot</h1>
 
-    <div id="video-container">
-        <!-- Video con enlace directo desde Google Drive -->
-        <video id="video" loop>
-            <source src="https://drive.google.com/uc?export=download&id=1JfAHfYAxmK4YQzBs4JDv8JzBJNs95b9B" type="video/mp4">
+    <!-- Contenedor del video -->
+    <div id="videoContainer">
+        <video id="tarotVideo" controls preload="auto">
+            <source src="https://drive.google.com/uc?id=1JfAHfYAxmK4YQzBs4JDv8JzBJNs95b9B&export=download" type="video/mp4">
             Tu navegador no soporta la reproducción de videos.
         </video>
-        
-        <!-- Contenedor de botones -->
-        <div id="button-container">
-            <button onclick="playVideo()">Iniciar</button>
-            <button onclick="pauseVideo()">Detener</button>
-            <button onclick="stopVideo()">Detener Total</button>
-            <button onclick="reloadVideo()">Recargar</button>
-        </div>
+    </div>
+
+    <!-- Controles para el video -->
+    <div class="buttons">
+        <button id="playButton" onclick="playVideo()">Reproducir Video</button>
+        <button id="pauseButton" onclick="pauseVideo()" disabled>Detener Video</button>
+        <button id="loopButton" onclick="loopVideo()">Repetir Video</button>
+        <button id="stopButton" onclick="stopVideo()">Parar Video</button>
     </div>
 
     <script>
-        // Obtener el video desde su ID
-        var video = document.getElementById("video");
-        
-        // Variable para gestionar el estado de reproducción
-        var isPlaying = false;
+        // Obtener los elementos del video y botones
+        const video = document.getElementById('tarotVideo');
+        const playButton = document.getElementById('playButton');
+        const pauseButton = document.getElementById('pauseButton');
+        const loopButton = document.getElementById('loopButton');
+        const stopButton = document.getElementById('stopButton');
 
         // Función para reproducir el video
         function playVideo() {
-            if (!isPlaying) {
-                video.play();
-                isPlaying = true;
-            }
+            video.play();
+            playButton.disabled = true;
+            pauseButton.disabled = false;
+            stopButton.disabled = false;
         }
 
         // Función para pausar el video
         function pauseVideo() {
-            if (isPlaying) {
-                video.pause();
-                isPlaying = false;
-            }
+            video.pause();
+            playButton.disabled = false;
+            pauseButton.disabled = true;
         }
 
-        // Función para detener completamente el video (pone en pausa y vuelve al inicio)
+        // Función para habilitar el loop
+        function loopVideo() {
+            video.loop = !video.loop;  // Alternar entre habilitar/deshabilitar el loop
+            loopButton.innerHTML = video.loop ? 'Desactivar Repetición' : 'Activar Repetición';
+        }
+
+        // Función para detener el video (ponlo en el principio)
         function stopVideo() {
             video.pause();
             video.currentTime = 0;
-            isPlaying = false;
-        }
-
-        // Función para recargar el video desde el principio
-        function reloadVideo() {
-            video.load();
-            video.play();
-            isPlaying = true;
+            playButton.disabled = false;
+            pauseButton.disabled = true;
+            stopButton.disabled = true;
         }
     </script>
 
