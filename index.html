@@ -89,7 +89,9 @@
 
         // Función para reproducir el video
         function playVideo() {
-            video.play();
+            video.play().catch(error => {
+                console.error("Error al intentar reproducir el video:", error);
+            });
             playButton.disabled = true;
             pauseButton.disabled = false;
             stopButton.disabled = false;
