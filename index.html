@@ -126,27 +126,35 @@
 
     // Funciones para los botones de control
     function playVideo() {
-      if (player) {
+      if (player && player.playVideo) {
         player.playVideo(); // Reproducir video
+      } else {
+        console.log("El reproductor no está listo.");
       }
     }
 
     function pauseVideo() {
-      if (player) {
+      if (player && player.pauseVideo) {
         player.pauseVideo(); // Pausar video
+      } else {
+        console.log("El reproductor no está listo.");
       }
     }
 
     function stopVideo() {
-      if (player) {
+      if (player && player.stopVideo) {
         player.stopVideo(); // Detener video
+      } else {
+        console.log("El reproductor no está listo.");
       }
     }
 
     function restartVideo() {
-      if (player) {
+      if (player && player.seekTo) {
         player.seekTo(0); // Reiniciar el video al inicio
         player.playVideo(); // Reproducir el video nuevamente
+      } else {
+        console.log("El reproductor no está listo.");
       }
     }
   </script>
