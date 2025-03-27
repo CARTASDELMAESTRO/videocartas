@@ -4,47 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Tarot</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            text-align: center;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        video {
-            width: 80%;
-            max-width: 600px;
-            margin-bottom: 20px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 5px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
+    <h1 style="text-align:center;">Simulador de Tarot</h1>
+
+    <!-- Botones de control -->
+    <div style="text-align:center;">
+        <button onclick="playVideo()">Iniciar</button>
+        <button onclick="pauseVideo()">Detener</button>
+    </div>
+
+    <!-- Video -->
+    <video id="myVideo" width="600" controls loop>
+        <source src="https://drive.google.com/uc?id=1JfAHfYAxmK4YQzBs4JDv8JzBJNs95b9B" type="video/mp4">
+        Tu navegador no soporta la reproducción de videos.
+    </video>
+
+    <!-- Script para controles -->
+    <script>
+        var video = document.getElementById("myVideo");
+
+        function playVideo() {
+            video.play();
+        }
+
+        function pauseVideo() {
+            video.pause();
+        }
+    </script>
+</body>
+</html>
+
 
     <div class="container">
         <h1>Simulador de Tarot</h1>
