@@ -79,27 +79,38 @@
     <script>
         // Obtener el video desde su ID
         var video = document.getElementById("video");
+        
+        // Variable para gestionar el estado de reproducción
+        var isPlaying = false;
 
         // Función para reproducir el video
         function playVideo() {
-            video.play();
+            if (!isPlaying) {
+                video.play();
+                isPlaying = true;
+            }
         }
 
         // Función para pausar el video
         function pauseVideo() {
-            video.pause();
+            if (isPlaying) {
+                video.pause();
+                isPlaying = false;
+            }
         }
 
         // Función para detener completamente el video (pone en pausa y vuelve al inicio)
         function stopVideo() {
             video.pause();
             video.currentTime = 0;
+            isPlaying = false;
         }
 
         // Función para recargar el video desde el principio
         function reloadVideo() {
             video.load();
             video.play();
+            isPlaying = true;
         }
     </script>
 
