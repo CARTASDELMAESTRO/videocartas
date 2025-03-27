@@ -68,7 +68,7 @@
     <!-- Contenedor del video -->
     <div id="videoContainer">
         <!-- Video de YouTube insertado -->
-        <iframe id="videoPlayer" src="https://www.youtube.com/embed/7uN8VKXT2r0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="videoPlayer" src="https://www.youtube.com/embed/7uN8VKXT2r0?enablejsapi=1&loop=1&playlist=7uN8VKXT2r0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <!-- Controles para el video -->
@@ -82,6 +82,13 @@
     <!-- Agregar el script para controlar el video -->
     <script>
         var player;
+
+        // Cargar la API de YouTube para controlar el video
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('videoPlayer', {
                 events: {
@@ -130,12 +137,6 @@
             player.seekTo(0);
             player.playVideo();
         });
-
-        // Cargar la API de YouTube para controlar el video
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     </script>
 
 </body>
