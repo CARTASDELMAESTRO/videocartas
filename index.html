@@ -57,22 +57,26 @@
 
         <!-- Botones -->
         <div>
-            <button onclick="playVideo()">Iniciar</button>
-            <button onclick="pauseVideo()">Detener</button>
-        </div>
-    </div>
+           <button onclick="playVideo()">Iniciar</button>
+<button onclick="pauseVideo()">Detener</button>
 
-    <script>
-        var video = document.getElementById('video');
+<video id="myVideo" width="600" controls>
+    <source src="https://tu-enlace-de-video.mp4" type="video/mp4">
+    Tu navegador no soporta la reproducción de videos.
+</video>
 
-        function playVideo() {
-            video.play();
-        }
+<script>
+    var video = document.getElementById("myVideo");
 
-        function pauseVideo() {
-            video.pause();
-        }
-    </script>
+    function playVideo() {
+        video.play();
+    }
+
+    function pauseVideo() {
+        video.pause();
+    }
+</script>
+
 
 </body>
 </html>
