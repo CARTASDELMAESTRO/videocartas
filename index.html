@@ -4,71 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Tarot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-top: 50px;
+        }
+
+        #video-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        video {
+            width: 80%;  /* Ajusta el tamaño del video según tu preferencia */
+            max-width: 800px;
+            border: 2px solid #333;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Estilo para los botones centrados */
+        #button-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 <body>
-    <h1 style="text-align:center;">Simulador de Tarot</h1>
 
-    <!-- Botones de control -->
-    <div style="text-align:center;">
-        <button onclick="playVideo()">Iniciar</button>
-        <button onclick="pauseVideo()">Detener</button>
-    </div>
+    <h1>Simulador de Tarot</h1>
 
-    <!-- Video -->
-    <div style="text-align:center;">
-        <video id="myVideo" width="600" loop>
-            <source src="https://drive.google.com/uc?id=1JfAHfYAxmK4YQzBs4JDv8JzBJNs95b9B" type="video/mp4">
+    <div id="video-container">
+        <!-- Video con enlace directo desde Google Drive -->
+        <video id="video" loop>
+            <source src="https://drive.google.com/uc?export=download&id=1JfAHfYAxmK4YQzBs4JDv8JzBJNs95b9B" type="video/mp4">
             Tu navegador no soporta la reproducción de videos.
         </video>
+        
+        <!-- Contenedor de botones -->
+        <div id="button-container">
+            <button onclick="playVideo()">Iniciar</button>
+            <button onclick="pauseVideo()">Detener</button>
+            <button onclick="stopVideo()">Detener Total</button>
+            <button onclick="reloadVideo()">Recargar</button>
+        </div>
     </div>
 
-    <!-- Script para controles -->
     <script>
-        var video = document.getElementById("myVideo");
+        // Obtener el video desde su ID
+        var video = document.getElementById("video");
 
+        // Función para reproducir el video
         function playVideo() {
             video.play();
         }
 
+        // Función para pausar el video
         function pauseVideo() {
             video.pause();
         }
+
+        // Función para detener completamente el video (pone en pausa y vuelve al inicio)
+        function stopVideo() {
+            video.pause();
+            video.currentTime = 0;
+        }
+
+        // Función para recargar el video desde el principio
+        function reloadVideo() {
+            video.load();
+            video.play();
+        }
     </script>
-</body>
-</html>
-
-
-    <div class="container">
-        <h1>Simulador de Tarot</h1>
-
-        <!-- Video -->
-        <video id="video" loop>
-            <source src="https://onedrive.live.com/?cid=B1C8A30696B56109&id=B1C8A30696B56109%21s7d3668e9a04f4418926e43dd3c1c716b&parId=B1C8A30696B56109%2176903&o=OneUp&download=1" type="video/mp4">
-            Tu navegador no soporta la reproducción de videos.
-        </video>
-
-        <!-- Botones -->
-        <div>
-           <button onclick="playVideo()">Iniciar</button>
-<button onclick="pauseVideo()">Detener</button>
-
-<video id="myVideo" width="600" controls>
-    <source src="https://tu-enlace-de-video.mp4" type="video/mp4">
-    Tu navegador no soporta la reproducción de videos.
-</video>
-
-<script>
-    var video = document.getElementById("myVideo");
-
-    function playVideo() {
-        video.play();
-    }
-
-    function pauseVideo() {
-        video.pause();
-    }
-</script>
-
 
 </body>
 </html>
