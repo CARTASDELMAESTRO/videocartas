@@ -28,9 +28,10 @@
             background-color: #000;
         }
 
-        video {
+        iframe {
             width: 100%;
-            height: auto;
+            height: 100%;
+            border: none;
         }
 
         .buttons {
@@ -56,7 +57,6 @@
         button:hover {
             background-color: #0056b3;
         }
-
     </style>
 </head>
 <body>
@@ -65,60 +65,17 @@
 
     <!-- Contenedor del video -->
     <div id="videoContainer">
-        <video id="tarotVideo" controls preload="auto">
-            <source src="https://drive.google.com/uc?export=download&id=1JfAHfYAxmK4YQzBs4JDv8JzBJNs95b9B" type="video/mp4">
-            Tu navegador no soporta la reproducción de videos.
-        </video>
+        <!-- Video de YouTube insertado -->
+        <iframe src="https://www.youtube.com/embed/7uN8VKXT2r0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <!-- Controles para el video -->
     <div class="buttons">
-        <button id="playButton" onclick="playVideo()">Reproducir Video</button>
-        <button id="pauseButton" onclick="pauseVideo()" disabled>Detener Video</button>
-        <button id="loopButton" onclick="loopVideo()">Repetir Video</button>
-        <button id="stopButton" onclick="stopVideo()">Parar Video</button>
+        <button id="playButton">Reproducir Video</button>
+        <button id="pauseButton" disabled>Detener Video</button>
+        <button id="loopButton">Repetir Video</button>
+        <button id="stopButton" disabled>Parar Video</button>
     </div>
-
-    <script>
-        // Obtener los elementos del video y botones
-        const video = document.getElementById('tarotVideo');
-        const playButton = document.getElementById('playButton');
-        const pauseButton = document.getElementById('pauseButton');
-        const loopButton = document.getElementById('loopButton');
-        const stopButton = document.getElementById('stopButton');
-
-        // Función para reproducir el video
-        function playVideo() {
-            video.play().catch(error => {
-                console.error("Error al intentar reproducir el video:", error);
-            });
-            playButton.disabled = true;
-            pauseButton.disabled = false;
-            stopButton.disabled = false;
-        }
-
-        // Función para pausar el video
-        function pauseVideo() {
-            video.pause();
-            playButton.disabled = false;
-            pauseButton.disabled = true;
-        }
-
-        // Función para habilitar el loop
-        function loopVideo() {
-            video.loop = !video.loop;  // Alternar entre habilitar/deshabilitar el loop
-            loopButton.innerHTML = video.loop ? 'Desactivar Repetición' : 'Activar Repetición';
-        }
-
-        // Función para detener el video (ponlo en el principio)
-        function stopVideo() {
-            video.pause();
-            video.currentTime = 0;
-            playButton.disabled = false;
-            pauseButton.disabled = true;
-            stopButton.disabled = true;
-        }
-    </script>
 
 </body>
 </html>
