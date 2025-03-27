@@ -112,24 +112,33 @@
 
     // Función que se ejecuta cuando el video está listo para reproducirse
     function onPlayerReady(event) {
-      event.target.playVideo(); // Reproducir video automáticamente cuando está listo
+      // Esto asegura que el video se reproduce automáticamente cuando está listo
+      event.target.playVideo();
+    }
+
+    // Función que se ejecuta cuando cambia el estado del reproductor
+    function onPlayerStateChange(event) {
+      // Si el video ha terminado de reproducirse, puede reiniciarlo o realizar otra acción
+      if (event.data == YT.PlayerState.ENDED) {
+        player.seekTo(0); // Reiniciar video cuando termina
+      }
     }
 
     // Funciones para los botones de control
     function playVideo() {
-      if (player && player.playVideo) {
+      if (player) {
         player.playVideo(); // Reproducir video
       }
     }
 
     function pauseVideo() {
-      if (player && player.pauseVideo) {
+      if (player) {
         player.pauseVideo(); // Pausar video
       }
     }
 
     function stopVideo() {
-      if (player && player.stopVideo) {
+      if (player) {
         player.stopVideo(); // Detener video
       }
     }
