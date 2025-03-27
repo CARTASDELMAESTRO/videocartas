@@ -1,143 +1,114 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Tarot</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-            flex-direction: column;
-        }
-
-        h1 {
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        #videoContainer {
-            position: relative;
-            width: 80%;
-            max-width: 1200px;
-            aspect-ratio: 16 / 9; /* Mantiene la relación de aspecto del video 1920x1080 */
-            background-color: #000;
-            margin-bottom: 30px;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .buttons {
-            margin-top: 20px;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            margin: 10px;
-            border-radius: 5px;
-        }
-
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Video</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    #video-container {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+    }
+    #buttons-container {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 150px;
+      margin: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Simulador de Tarot</h1>
+  <div id="video-container">
+    <iframe id="video" src="https://www.youtube.com/embed/7uN8VKXT2r0?autoplay=1&loop=1&playlist=7uN8VKXT2r0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
 
-    <!-- Contenedor del video -->
-    <div id="videoContainer">
-        <!-- Video de YouTube insertado -->
-        <iframe id="videoPlayer" src="https://www.youtube.com/embed/7uN8VKXT2r0?enablejsapi=1&loop=1&playlist=7uN8VKXT2r0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+  <div id="buttons-container">
+    <button onclick="playVideo()">Reproducir</button>
+    <button onclick="pauseVideo()">Pausar</button>
+    <button onclick="stopVideo()">Detener</button>
+    <button onclick="restartVideo()">Reiniciar</button>
+  </div>
 
-    <!-- Controles para el video -->
-    <div class="buttons">
-        <button id="playButton">Reproducir Video</button>
-        <button id="pauseButton" disabled>Pausar Video</button>
-        <button id="stopButton" disabled>Detener Video</button>
-        <button id="restartButton" disabled>Reiniciar Video</button>
-    </div>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    var player;
 
-    <!-- Agregar el script para controlar el video -->
-    <script>
-        var player;
-
-        // Cargar la API de YouTube para controlar el video
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('videoPlayer', {
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+    // Esta función es llamada cuando la API de YouTube está lista
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('video', {
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
         }
+      });
+    }
 
-        function onPlayerReady(event) {
-            // Activar los botones cuando el video esté listo
-            document.getElementById('playButton').disabled = false;
-            document.getElementById('pauseButton').disabled = false;
-            document.getElementById('stopButton').disabled = false;
-            document.getElementById('restartButton').disabled = false;
-        }
+    // Cuando el video está listo, se comienza a reproducir automáticamente
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
 
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.PLAYING) {
-                document.getElementById('playButton').disabled = true;
-                document.getElementById('pauseButton').disabled = false;
-                document.getElementById('stopButton').disabled = false;
-            } else if (event.data == YT.PlayerState.PAUSED) {
-                document.getElementById('playButton').disabled = false;
-                document.getElementById('pauseButton').disabled = true;
-            }
-        }
+    // Cambio de estado del reproductor
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.ENDED) {
+        player.seekTo(0);
+      }
+    }
 
-        // Función para reproducir el video
-        document.getElementById('playButton').addEventListener('click', function() {
-            player.playVideo();
-        });
+    // Función para reproducir video
+    function playVideo() {
+      player.playVideo();
+    }
 
-        // Función para pausar el video
-        document.getElementById('pauseButton').addEventListener('click', function() {
-            player.pauseVideo();
-        });
+    // Función para pausar el video
+    function pauseVideo() {
+      player.pauseVideo();
+    }
 
-        // Función para detener el video
-        document.getElementById('stopButton').addEventListener('click', function() {
-            player.stopVideo();
-        });
+    // Función para detener el video
+    function stopVideo() {
+      player.stopVideo();
+    }
 
-        // Función para reiniciar el video
-        document.getElementById('restartButton').addEventListener('click', function() {
-            player.seekTo(0);
-            player.playVideo();
-        });
-    </script>
+    // Función para reiniciar el video
+    function restartVideo() {
+      player.seekTo(0);
+      player.playVideo();
+    }
+  </script>
 
 </body>
 </html>
