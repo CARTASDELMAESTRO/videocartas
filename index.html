@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Control</title>
+</head>
+<body>
+    <h1>Reproductor de Video</h1>
+    
+    <!-- Video -->
+    <video id="myVideo" width="640" height="360" loop>
+        <source src="video.mp4" type="video/mp4">
+        Tu navegador no soporta la etiqueta de video.
+    </video>
+    
+    <br>
+    
+    <!-- Botones -->
+    <button onclick="startVideo()">Iniciar</button>
+    <button onclick="stopVideo()">Detener</button>
+    
+    <script>
+        // Obtener el video
+        const video = document.getElementById('myVideo');
+        
+        // Función para iniciar el video
+        function startVideo() {
+            video.play(); // Reproducir el video
+        }
+        
+        // Función para detener el video
+        function stopVideo() {
+            video.pause(); // Pausar el video
+            video.currentTime = 0; // Reiniciar el video al principio
+        }
+    </script>
+</body>
+</html>
