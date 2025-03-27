@@ -3,35 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video en Loop</title>
+    <title>Simulador de Tarot</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #121212;
-            color: white;
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
         }
         video {
             width: 80%;
-            max-width: 800px;
-            border-radius: 10px;
-        }
-        .buttons {
-            margin-top: 20px;
+            max-width: 600px;
+            margin-bottom: 20px;
         }
         button {
-            background-color: #007BFF;
+            background-color: #007bff;
             color: white;
             border: none;
             padding: 10px 20px;
             font-size: 16px;
-            margin: 5px;
             cursor: pointer;
             border-radius: 5px;
+            margin: 5px;
         }
         button:hover {
             background-color: #0056b3;
@@ -40,15 +46,33 @@
 </head>
 <body>
 
-    <video id="video" loop>
-        <source src="https://github.com/user-attachments/assets/d385593b-67ef-4422-a682-b01f05a22ab6" type="video/mp4">
-        Tu navegador no soporta la reproducción de videos.
-    </video>
+    <div class="container">
+        <h1>Simulador de Tarot</h1>
 
-    <div class="buttons">
-        <button onclick="document.getElementById('video').play()">Iniciar</button>
-        <button onclick="document.getElementById('video').pause()">Detener</button>
+        <!-- Video -->
+        <video id="video" loop>
+            <source src="https://onedrive.live.com/?cid=B1C8A30696B56109&id=B1C8A30696B56109%21s7d3668e9a04f4418926e43dd3c1c716b&parId=B1C8A30696B56109%2176903&o=OneUp&download=1" type="video/mp4">
+            Tu navegador no soporta la reproducción de videos.
+        </video>
+
+        <!-- Botones -->
+        <div>
+            <button onclick="playVideo()">Iniciar</button>
+            <button onclick="pauseVideo()">Detener</button>
+        </div>
     </div>
+
+    <script>
+        var video = document.getElementById('video');
+
+        function playVideo() {
+            video.play();
+        }
+
+        function pauseVideo() {
+            video.pause();
+        }
+    </script>
 
 </body>
 </html>
