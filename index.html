@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Video</title>
   <style>
-    /* Estilos generales para centrar el contenido */
+    /* Estilos generales */
     body {
       font-family: Arial, sans-serif;
       display: flex;
@@ -17,23 +17,24 @@
       flex-direction: column;
     }
 
-    /* Estilos para el contenedor del video */
+    /* Contenedor del video */
     #video-container {
       width: 100%;
       max-width: 1920px;
-      margin: 20px 0;
+      height: 0;
+      padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
       position: relative;
       overflow: hidden;
-      height: auto;
+      margin-bottom: 20px;
     }
 
     iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      aspect-ratio: 16/9; /* Mantiene la proporción 16:9 */
       border: none;
-      display: block;
-      object-fit: cover;
     }
 
     /* Contenedor de los botones */
@@ -41,8 +42,7 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 15px; /* Espacio entre los botones */
-      margin-top: 20px;
+      gap: 15px;
     }
 
     /* Estilos para los botones */
@@ -55,8 +55,7 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      width: 180px; /* Tamaño fijo para los botones */
-      text-align: center;
+      width: 180px;
     }
 
     /* Estilo para los botones en hover */
@@ -64,11 +63,11 @@
       background-color: #0056b3;
     }
 
-    /* Estilos para asegurar que los botones no se rompan en pantallas pequeñas */
+    /* Responsivo: ajustes en pantallas pequeñas */
     @media (max-width: 768px) {
       button {
-        width: 100%; /* Los botones ocupan el 100% del contenedor en pantallas pequeñas */
-        font-size: 16px; /* Reducir el tamaño de la fuente */
+        width: 100%;
+        font-size: 16px;
       }
     }
   </style>
@@ -76,7 +75,7 @@
 <body>
 
   <div id="video-container">
-    <!-- Video de YouTube insertado con la configuración de loop y autoplay -->
+    <!-- Video de YouTube insertado con autoplay y loop configurados -->
     <iframe id="video" 
       src="https://www.youtube.com/embed/7uN8VKXT2r0?autoplay=1&loop=1&playlist=7uN8VKXT2r0&vq=hd1080" 
       frameborder="0" 
@@ -87,17 +86,17 @@
 
   <div id="buttons-container">
     <!-- Botones para controlar el video -->
-    <button onclick="playVideo()">Reproducir video</button>
-    <button onclick="pauseVideo()">Pausar video</button>
-    <button onclick="stopVideo()">Detener video</button>
-    <button onclick="restartVideo()">Reiniciar video</button>
+    <button onclick="playVideo()">Reproducir</button>
+    <button onclick="pauseVideo()">Pausar</button>
+    <button onclick="stopVideo()">Detener</button>
+    <button onclick="restartVideo()">Reiniciar</button>
   </div>
 
   <!-- Cargar la API de YouTube -->
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
-    // Variable para almacenar el reproductor de YouTube
+    // Variable global para el reproductor
     var player;
 
     // Función que se ejecuta cuando la API de YouTube está lista
@@ -118,7 +117,6 @@
 
     // Función que se ejecuta cuando cambia el estado del reproductor
     function onPlayerStateChange(event) {
-      // Si el video ha terminado de reproducirse, puede reiniciarlo o realizar otra acción
       if (event.data == YT.PlayerState.ENDED) {
         player.seekTo(0); // Reiniciar video cuando termina
       }
@@ -126,35 +124,27 @@
 
     // Funciones para los botones de control
     function playVideo() {
-      if (player && player.playVideo) {
+      if (player) {
         player.playVideo(); // Reproducir video
-      } else {
-        console.log("El reproductor no está listo.");
       }
     }
 
     function pauseVideo() {
-      if (player && player.pauseVideo) {
+      if (player) {
         player.pauseVideo(); // Pausar video
-      } else {
-        console.log("El reproductor no está listo.");
       }
     }
 
     function stopVideo() {
-      if (player && player.stopVideo) {
+      if (player) {
         player.stopVideo(); // Detener video
-      } else {
-        console.log("El reproductor no está listo.");
       }
     }
 
     function restartVideo() {
-      if (player && player.seekTo) {
+      if (player) {
         player.seekTo(0); // Reiniciar el video al inicio
         player.playVideo(); // Reproducir el video nuevamente
-      } else {
-        console.log("El reproductor no está listo.");
       }
     }
   </script>
