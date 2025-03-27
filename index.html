@@ -117,20 +117,28 @@
 
     // Funciones para los botones de control
     function playVideo() {
-      player.playVideo(); // Reproducir video
+      if (player && player.playVideo) {
+        player.playVideo(); // Reproducir video
+      }
     }
 
     function pauseVideo() {
-      player.pauseVideo(); // Pausar video
+      if (player && player.pauseVideo) {
+        player.pauseVideo(); // Pausar video
+      }
     }
 
     function stopVideo() {
-      player.stopVideo(); // Detener video
+      if (player && player.stopVideo) {
+        player.stopVideo(); // Detener video
+      }
     }
 
     function restartVideo() {
-      player.seekTo(0); // Reiniciar el video al inicio
-      player.playVideo(); // Reproducir el video nuevamente
+      if (player) {
+        player.seekTo(0); // Reiniciar el video al inicio
+        player.playVideo(); // Reproducir el video nuevamente
+      }
     }
   </script>
 
