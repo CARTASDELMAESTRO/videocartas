@@ -4,6 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Tarot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+    button {
+      margin: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
@@ -16,8 +32,10 @@
   </video>
 
   <!-- Botones para iniciar y detener el video -->
-  <button onclick="startVideo()">Iniciar</button>
-  <button onclick="stopVideo()">Detener</button>
+  <div>
+    <button onclick="startVideo()">Iniciar</button>
+    <button onclick="stopVideo()">Detener</button>
+  </div>
 
   <script>
     // Función para iniciar el video
@@ -36,3 +54,4 @@
 
 </body>
 </html>
+
