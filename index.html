@@ -14,6 +14,8 @@
             margin: 0;
             background-color: #f4f4f4;
             flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         h1 {
@@ -23,21 +25,27 @@
 
         #videoContainer {
             position: relative;
-            width: 80%;
+            width: 100%;
             max-width: 1200px;
-            aspect-ratio: 16 / 9; /* Mantiene la relación de aspecto del video 1920x1080 */
+            aspect-ratio: 16 / 9;
             background-color: #000;
             margin-bottom: 30px;
+            overflow: hidden;
         }
 
         iframe {
             width: 100%;
             height: 100%;
             border: none;
+            object-fit: cover;  /* Ajuste para que el video se ajuste bien */
         }
 
         .buttons {
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         button {
@@ -47,8 +55,9 @@
             font-size: 16px;
             border: none;
             cursor: pointer;
-            margin: 10px;
             border-radius: 5px;
+            width: 150px;
+            transition: background-color 0.3s;
         }
 
         button:disabled {
@@ -58,6 +67,27 @@
 
         button:hover {
             background-color: #0056b3;
+        }
+
+        /* Ajuste responsivo para pantallas más pequeñas */
+        @media (max-width: 768px) {
+            iframe {
+                height: auto; /* Ajusta el video en dispositivos móviles */
+            }
+
+            button {
+                width: 100px;  /* Botones más pequeños en pantallas pequeñas */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                width: 80px;  /* Botones aún más pequeños en dispositivos pequeños */
+            }
         }
     </style>
 </head>
